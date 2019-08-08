@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController controller;
+
     enum State
     {
         Ready,
@@ -15,12 +18,23 @@ public class GameController : MonoBehaviour
 
     State state;
 
-    float t = 20.0f;
+    public float t = 20.0f;
 
-    public int Target_value = 10;
+    [SerializeField] int Target_value = 10;
     [SerializeField] int hitCount = 0;
 
     bool Attacker_win = false;
+
+    //UI elements
+    [SerializeField] Text hitCountBoard;
+
+
+
+    private void Awake()
+    {
+        if (controller == null) controller = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -42,33 +56,26 @@ public class GameController : MonoBehaviour
 
             case State.Play:
                 Debug.Log("Play!!");
-
-                if (Input.GetKeyDown(KeyCode.Space)) hitCount++;
-
                 Refereeing();
-
-                t -= Time.deltaTime;
-                Debug.Log(t);
-
-                if (t < 0) GameOver();
+                OnPlaying();
 
                 break;
 
             case State.End:
                 Debug.Log("End");
 
-                if (Attacker_win)
-                {
-                    Debug.Log("Attacker Win!!!");
-                }
-                else
-                {
-                    Debug.Log("Defender Win!!!");
-                }
-
                 if (Input.GetMouseButtonDown(0)) Reload();
+
                 break;
         }
+    }
+
+    private void OnPlaying()
+    {
+        t -= Time.deltaTime;
+        //Debug.Log(t);
+
+        if (t < 0) GameOver();
     }
 
     private void Refereeing()
@@ -81,7 +88,7 @@ public class GameController : MonoBehaviour
 
     void Reload()
     {
-        SceneManager.LoadScene("GameManagerTest");
+        SceneManager.LoadScene("Title");
     }
 
     void Ready()
@@ -92,10 +99,29 @@ public class GameController : MonoBehaviour
     void GameStart()
     {
         state = State.Play;
+        SceneManager.LoadScene("GameManagerTest");
     }
 
     void GameOver()
     {
         state = State.End;
+        hitCountBoard = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
+        hitCountBoard.text = "ヒット回数" + hitCount;
+        if (Attacker_win)
+        {
+            hitCountBoard.text = hitCountBoard.text + "\nAttacker Win!!!";
+        }
+        else
+        {
+            hitCountBoard.text = hitCountBoard.text + "\nDefender Win!!!";
+        }
+
+        hitCountBoard.enabled = true;
     }
+
+    public void PlayerHit()
+    {
+        hitCount++;
+    }
+
 }
