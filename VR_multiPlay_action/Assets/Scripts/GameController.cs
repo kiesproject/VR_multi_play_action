@@ -107,7 +107,7 @@ public class GameController : MonoBehaviour
     //OnPlayingは制限時間を減少させて、0以下になったらGameOverメソッドを呼び出す
     private void OnPlaying()
     {
-        _time -= _time.deltaTime;
+        _time -= Time.deltaTime;
         //Debug.Log(t);
 
         if (_time < 0) GameOver();
