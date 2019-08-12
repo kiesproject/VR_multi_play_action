@@ -149,8 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4217c4b31f1e89347aee1a3aa91f55af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _time: 20
   Target_value: 10
   hitCount: 0
+  hitCountBoard: {fileID: 0}
 --- !u!4 &503503909
 Transform:
   m_ObjectHideFlags: 0
@@ -471,7 +473,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Spece\u30AD\u30FC\u3067\n\u30B9\u30BF\u30FC\u30C8"
+  m_Text: "\u30AF\u30EA\u30C3\u30AF\u3067\n\u30B9\u30BF\u30FC\u30C8"
 --- !u!222 &1776524261
 CanvasRenderer:
   m_ObjectHideFlags: 0
