@@ -9,6 +9,10 @@ public class Front : MonoBehaviour
     void Update()
     {
         transform.Translate(0, 0, spead);
+        if(transform.position.z < -1)
+        {
+            Destroy(gameObject);
+        }
     }
 
 }

@@ -9,6 +9,10 @@ public class Right : MonoBehaviour
     void Update()
     {
         transform.Translate(spead, 0, 0);
+        if (transform.position.x < -1)
+        {
+            Destroy(gameObject);
+        }
     }
 
 }
