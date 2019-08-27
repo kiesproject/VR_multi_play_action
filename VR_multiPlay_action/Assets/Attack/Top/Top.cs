@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UP : MonoBehaviour
+public class Top : MonoBehaviour
 {
     public float spead = -1;
     
