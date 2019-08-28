@@ -4066,7 +4066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce51838ef394ae14b9bd70fca9017585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  span: 10
+  span: 5
 --- !u!4 &1929921777
 Transform:
   m_ObjectHideFlags: 0
@@ -4422,7 +4422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759805242f8f5f84bb543b113fefc4ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  span: 1
+  span: 0.5
 --- !u!1 &2082857924
 GameObject:
   m_ObjectHideFlags: 0

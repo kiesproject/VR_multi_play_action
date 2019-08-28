@@ -53,9 +53,6 @@ public class adjust_Wall_timing : MonoBehaviour
             }
         }
 
-        else
-        {
-            
-        }
+       
     }
 }

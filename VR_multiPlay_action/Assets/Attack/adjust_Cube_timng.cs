@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class adjust_Cube_timng : MonoBehaviour
 {
-    public float span = 15.0f;
+    public float span = 1.0f;
     float delta = 0;
     GameObject Front_Button;
     GameObject Left_Button;
@@ -34,20 +34,20 @@ public class adjust_Cube_timng : MonoBehaviour
     {
         this.delta += Time.deltaTime;
 
-        if (this.delta > 1.0f && this.minuteCount <= this.span)
+        if (this.delta > 1.0f && this.minuteCount < this.span)
         {
             this.minuteCount++;
             delta = 0;
+        }
 
-            if (this.minuteCount >= this.span)
-            {
-                Front_Button.GetComponent<Button>().interactable = true;
-                Left_Button.GetComponent<Button>().interactable = true;
-                Right_Button.GetComponent<Button>().interactable = true;
-                Top_Button.GetComponent<Button>().interactable = true;
+        if (this.minuteCount >= this.span)
+        {
+            Front_Button.GetComponent<Button>().interactable = true;
+            Left_Button.GetComponent<Button>().interactable = true;
+            Right_Button.GetComponent<Button>().interactable = true;
+            Top_Button.GetComponent<Button>().interactable = true;
 
-                this.minuteCount = 0;
-            }
+            this.minuteCount = 0;
         }
 
     }
