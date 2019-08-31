@@ -6,12 +6,13 @@ public class adjust_Wall_timing : MonoBehaviour
 {
     public float span = 15.0f;
     float delta = 0;
+    float UIcounter = 0;
     GameObject Front_Wall_Button;
     GameObject Left_Wall_Button;
     GameObject Right_Wall_Button;
     GameObject Top_Wall_Button;
     GameObject Slider;
-    int minuteCount;
+
 
     private void Start()
     {
@@ -20,7 +21,7 @@ public class adjust_Wall_timing : MonoBehaviour
         this.Right_Wall_Button = GameObject.Find("Right_Wall_Button");
         this.Top_Wall_Button = GameObject.Find("Top_Wall_Button");
         this.Slider = GameObject.Find("Slider");
-        this.Slider.GetComponent<Slider>().maxValue = this.span;
+        this.Slider.GetComponent<Slider>().maxValue = this.span * 10;
     }
 
     public void OnClicks()
@@ -30,28 +31,30 @@ public class adjust_Wall_timing : MonoBehaviour
         Right_Wall_Button.GetComponent<Button>().interactable = false;
         Top_Wall_Button.GetComponent<Button>().interactable = false;
         this.Slider.GetComponent<Slider>().value = 0;
-        this.minuteCount = 0;
+        this.delta = 0;
     }
 
     private void Update()
     {
         this.delta += Time.deltaTime;
+        this.UIcounter += Time.deltaTime;
 
-        if (this.delta > 1.0f && this.minuteCount <= this.span)
+        if (this.UIcounter >= 0.1f)
         {
-            this.minuteCount++;
-            delta = 0;
             this.Slider.GetComponent<Slider>().value++;
-            if (this.minuteCount >= this.span)
-            {
-                Front_Wall_Button.GetComponent<Button>().interactable = true;
-                Left_Wall_Button.GetComponent<Button>().interactable = true;
-                Right_Wall_Button.GetComponent<Button>().interactable = true;
-                Top_Wall_Button.GetComponent<Button>().interactable = true;
-
-                this.minuteCount = 0;
-            }
+            UIcounter = 0;
         }
+
+
+        if (this.delta >= this.span)
+        {
+            Front_Wall_Button.GetComponent<Button>().interactable = true;
+            Left_Wall_Button.GetComponent<Button>().interactable = true;
+            Right_Wall_Button.GetComponent<Button>().interactable = true;
+            Top_Wall_Button.GetComponent<Button>().interactable = true;
+
+        }
+        
 
        
     }

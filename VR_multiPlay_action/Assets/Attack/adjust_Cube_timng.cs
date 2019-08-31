@@ -11,7 +11,6 @@ public class adjust_Cube_timng : MonoBehaviour
     GameObject Left_Button;
     GameObject Right_Button;
     GameObject Top_Button;
-    int minuteCount;
 
     private void Start()
     {
@@ -27,27 +26,20 @@ public class adjust_Cube_timng : MonoBehaviour
         Left_Button.GetComponent<Button>().interactable = false;
         Right_Button.GetComponent<Button>().interactable = false;
         Top_Button.GetComponent<Button>().interactable = false;
-        this.minuteCount = 0;
+        this.delta = 0;
     }
 
     private void Update()
     {
         this.delta += Time.deltaTime;
 
-        if (this.delta > 1.0f && this.minuteCount < this.span)
-        {
-            this.minuteCount++;
-            delta = 0;
-        }
-
-        if (this.minuteCount >= this.span)
+        if (this.delta >= this.span)
         {
             Front_Button.GetComponent<Button>().interactable = true;
             Left_Button.GetComponent<Button>().interactable = true;
             Right_Button.GetComponent<Button>().interactable = true;
             Top_Button.GetComponent<Button>().interactable = true;
 
-            this.minuteCount = 0;
         }
 
     }
