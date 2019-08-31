@@ -21,7 +21,7 @@ public class adjust_Wall_timing : MonoBehaviour
         this.Right_Wall_Button = GameObject.Find("Right_Wall_Button");
         this.Top_Wall_Button = GameObject.Find("Top_Wall_Button");
         this.Slider = GameObject.Find("Slider");
-        this.Slider.GetComponent<Slider>().maxValue = this.span * 10;
+        this.Slider.GetComponent<Slider>().maxValue = this.span * 5;
     }
 
     public void OnClicks()
@@ -39,7 +39,7 @@ public class adjust_Wall_timing : MonoBehaviour
         this.delta += Time.deltaTime;
         this.UIcounter += Time.deltaTime;
 
-        if (this.UIcounter >= 0.1f)
+        if (this.UIcounter >= 0.2f)
         {
             this.Slider.GetComponent<Slider>().value++;
             UIcounter = 0;
@@ -52,10 +52,6 @@ public class adjust_Wall_timing : MonoBehaviour
             Left_Wall_Button.GetComponent<Button>().interactable = true;
             Right_Wall_Button.GetComponent<Button>().interactable = true;
             Top_Wall_Button.GetComponent<Button>().interactable = true;
-
         }
-        
-
-       
     }
 }

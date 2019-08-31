@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class adjust_Cube_timng : MonoBehaviour
+public class adjust_Cube_timing : MonoBehaviour
 {
     public float span = 1.0f;
     float delta = 0;

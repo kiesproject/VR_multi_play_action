@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Throw_Controller : MonoBehaviour
 {
@@ -8,50 +9,87 @@ public class Throw_Controller : MonoBehaviour
     LeftCube_Generator leftCube;
     RightCube_Generator rightCube;
     FrontCube_Generator frontCube;
-    adjust_Cube_timng adjust;
-    float counter;
 
-    // Start is called before the first frame update
+    TopWall_Generator topWall;
+    LeftWall_Generator leftWall;
+    RightWall_Generator rightWall;
+    FrontWall_Generator frontWall;
+
+    adjust_Cube_timing adjust;
+    adjust_Wall_timing adjustWall;
+    GameObject Front_Button;
+    GameObject Front_Wall_Button;
+
     void Start()
     {
         this.topCube = GameObject.Find("TopCube_Generator").GetComponent<TopCube_Generator>();
         this.leftCube = GameObject.Find("LeftCube_Generator").GetComponent<LeftCube_Generator>();
         this.rightCube = GameObject.Find("RightCube_Generator").GetComponent<RightCube_Generator>();
         this.frontCube = GameObject.Find("FrontCube_Generator").GetComponent<FrontCube_Generator>();
-        this.adjust = GameObject.Find("adjust_Cube_timing").GetComponent<adjust_Cube_timng>();
+
+        this.topWall = GameObject.Find("TopWall_Generator").GetComponent<TopWall_Generator>();
+        this.leftWall = GameObject.Find("LeftWall_Generator").GetComponent<LeftWall_Generator>();
+        this.rightWall = GameObject.Find("RightWall_Generator").GetComponent<RightWall_Generator>();
+        this.frontWall = GameObject.Find("FrontWall_Generator").GetComponent<FrontWall_Generator>();
+
+        this.adjust = GameObject.Find("adjust_Cube_timing").GetComponent<adjust_Cube_timing>();
+        this.adjustWall = GameObject.Find("adjust_Wall_timing").GetComponent<adjust_Wall_timing>();
+        this.Front_Button = GameObject.Find("Front_Button");
+        this.Front_Wall_Button = GameObject.Find("Front_Wall_Button");
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        counter += Time.deltaTime;
-
-        if(Input.GetKeyDown(KeyCode.UpArrow) && counter > adjust.span)
-        {
-            this.topCube.OnClick();
-            adjust.OnClicks();
-            counter = 0;
-        }
-
-        if(Input.GetKeyDown(KeyCode.LeftArrow) && counter > adjust.span)
-        {
-            this.leftCube.OnClick();
-            adjust.OnClicks();
-            counter = 0;
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow) && counter > adjust.span)
-        {
-            this.rightCube.OnClick();
-            adjust.OnClicks();
-            counter = 0;
-        }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow) && counter > adjust.span)
+        //通常攻撃
+        if (Input.GetKeyDown(KeyCode.UpArrow) && Front_Button.GetComponent<Button>().interactable == true)
         {
             this.frontCube.OnClick();
             adjust.OnClicks();
-            counter = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && Front_Button.GetComponent<Button>().interactable == true)
+        {
+            this.leftCube.OnClick();
+            adjust.OnClicks();
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) && Front_Button.GetComponent<Button>().interactable == true)
+        {
+            this.rightCube.OnClick();
+            adjust.OnClicks();
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow) && Front_Button.GetComponent<Button>().interactable == true)
+        {
+            this.topCube.OnClick();
+            adjust.OnClicks();
+        }
+
+        //壁を出す
+        else if (Input.GetKey(KeyCode.UpArrow) && (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)) && Front_Wall_Button.GetComponent<Button>().interactable == true)
+        {
+            this.frontWall.Wall_OnClick();
+            adjustWall.OnClicks();
+        }
+
+        else if (Input.GetKey(KeyCode.LeftArrow) && (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)) && Front_Wall_Button.GetComponent<Button>().interactable == true)
+        {
+            this.leftWall.Wall_OnClick();
+            adjustWall.OnClicks();
+        }
+
+        else if (Input.GetKey(KeyCode.RightArrow) && (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)) && Front_Wall_Button.GetComponent<Button>().interactable == true)
+        {
+            this.rightWall.Wall_OnClick();
+            adjustWall.OnClicks();
+        }
+
+        else if (Input.GetKey(KeyCode.DownArrow) && (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)) && Front_Wall_Button.GetComponent<Button>().interactable == true)
+        {
+            this.topWall.Wall_OnClick();
+            adjustWall.OnClicks();
+
         }
     }
 }

@@ -7,12 +7,16 @@ public class TopWall_Generator : MonoBehaviour
     public GameObject[] Throw_Object;
     private float lastMovingTime = 0;
     private int dice;
-    
-    
+    adjust_Wall_timing timing;
+
+    private void Start()
+    {
+        this.timing = GameObject.Find("adjust_Wall_timing").GetComponent<adjust_Wall_timing>();
+    }
+
+
     public void Wall_OnClick()
     {
-        adjust_Wall_timing timing = GameObject.Find("adjust_Wall_timing").GetComponent<adjust_Wall_timing>();
-
         if (Time.realtimeSinceStartup - this.lastMovingTime > timing.span)
         {
             this.dice = Random.Range(0, Throw_Object.Length);
