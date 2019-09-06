@@ -9,7 +9,7 @@ public class Top : MonoBehaviour
     void Update()
     {
         transform.Translate(0, spead, 0);
-        if (transform.position.y < -2 )
+        if (transform.position.y <= -2 )
         {
             Destroy(gameObject);
         }

@@ -19,6 +19,7 @@ public class Throw_Controller : MonoBehaviour
     adjust_Wall_timing adjustWall;
     GameObject Front_Button;
     GameObject Front_Wall_Button;
+    bool juggiment = false; 
 
     void Start()
     {
@@ -41,26 +42,33 @@ public class Throw_Controller : MonoBehaviour
 
     void Update()
     {
+        this.juggiment = false;
+
+        if((Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)))
+        {
+            this.juggiment = true;
+        }
+       
         //通常攻撃
-        if (Input.GetKeyDown(KeyCode.UpArrow) && Front_Button.GetComponent<Button>().interactable == true)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
             this.frontCube.OnClick();
             adjust.OnClicks();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && Front_Button.GetComponent<Button>().interactable == true)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
             this.leftCube.OnClick();
             adjust.OnClicks();
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) && Front_Button.GetComponent<Button>().interactable == true)
+        if (Input.GetKeyDown(KeyCode.RightArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
             this.rightCube.OnClick();
             adjust.OnClicks();
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && Front_Button.GetComponent<Button>().interactable == true)
+        if (Input.GetKeyDown(KeyCode.DownArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
             this.topCube.OnClick();
             adjust.OnClicks();
@@ -71,6 +79,7 @@ public class Throw_Controller : MonoBehaviour
         {
             this.frontWall.Wall_OnClick();
             adjustWall.OnClicks();
+
         }
 
         else if (Input.GetKey(KeyCode.LeftArrow) && (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)) && Front_Wall_Button.GetComponent<Button>().interactable == true)

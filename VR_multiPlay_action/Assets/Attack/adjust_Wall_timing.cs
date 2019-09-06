@@ -12,6 +12,7 @@ public class adjust_Wall_timing : MonoBehaviour
     GameObject Right_Wall_Button;
     GameObject Top_Wall_Button;
     GameObject Slider;
+    GameObject flushController;
 
 
     private void Start()
@@ -21,6 +22,7 @@ public class adjust_Wall_timing : MonoBehaviour
         this.Right_Wall_Button = GameObject.Find("Right_Wall_Button");
         this.Top_Wall_Button = GameObject.Find("Top_Wall_Button");
         this.Slider = GameObject.Find("Slider");
+        this.flushController = GameObject.Find("FlushController");
         this.Slider.GetComponent<Slider>().maxValue = this.span * 5;
     }
 
@@ -32,6 +34,7 @@ public class adjust_Wall_timing : MonoBehaviour
         Top_Wall_Button.GetComponent<Button>().interactable = false;
         this.Slider.GetComponent<Slider>().value = 0;
         this.delta = 0;
+        this.flushController.GetComponent<FlushController>().once = true;
     }
 
     private void Update()
@@ -39,7 +42,7 @@ public class adjust_Wall_timing : MonoBehaviour
         this.delta += Time.deltaTime;
         this.UIcounter += Time.deltaTime;
 
-        if (this.UIcounter >= 0.2f)
+        if (this.UIcounter >= 0.2f && this.Slider.GetComponent<Slider>().value < this.Slider.GetComponent<Slider>().maxValue)
         {
             this.Slider.GetComponent<Slider>().value++;
             UIcounter = 0;
