@@ -10,6 +10,8 @@ public class GameDirector : MonoBehaviour
     GameObject adjustCube;
     GameObject adjustWall;
     public float remaining_time = 20.0f;
+    public float Interval_Cube = 0.1f;
+    public float Interval_Wall = 3.0f;
 
 
     private void Start()
@@ -24,8 +26,8 @@ public class GameDirector : MonoBehaviour
         this.time -= Time.deltaTime;
         if(this.time <= this.remaining_time)
         {
-            adjustCube.GetComponent<adjust_Cube_timing>().span = 0.1f;
-            adjustWall.GetComponent<adjust_Wall_timing>().span = 3.0f;
+            adjustCube.GetComponent<adjust_Cube_timing>().span = Interval_Cube;
+            adjustWall.GetComponent<adjust_Wall_timing>().span = Interval_Wall;
         }
 
         this.timerText.GetComponent<Text>().text =
