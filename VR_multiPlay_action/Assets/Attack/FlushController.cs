@@ -31,9 +31,9 @@ public class FlushController : MonoBehaviour
 
     void Update()
     {
-        if (this.slider.GetComponent<Slider>().value == this.slider.GetComponent<Slider>().maxValue && this.once == true)
+        if (this.slider.GetComponent<Slider>().value == this.slider.GetComponent<Slider>().maxValue  && this.once == true)
         {
-            this.img1.GetComponent<Image>().color = new Color(0/255f, 255f/255f, 221f/255f, 207f/255f);
+            this.img1.GetComponent<Image>().color = new Color(0 / 255f, 255f / 255f, 221f / 255f, 207f / 255f);
             this.img2.GetComponent<Image>().color = new Color(0 / 255f, 255f / 255f, 221f / 255f, 207f / 255f);
             this.img3.GetComponent<Image>().color = new Color(0 / 255f, 255f / 255f, 221f / 255f, 207f / 255f);
             this.img4.GetComponent<Image>().color = new Color(0 / 255f, 255f / 255f, 221f / 255f, 207f / 255f);

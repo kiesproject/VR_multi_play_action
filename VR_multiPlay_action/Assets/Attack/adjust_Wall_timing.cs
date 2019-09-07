@@ -7,12 +7,15 @@ public class adjust_Wall_timing : MonoBehaviour
     public float span = 15.0f;
     float delta = 0;
     float UIcounter = 0;
+    float a;
+    float b;
     GameObject Front_Wall_Button;
     GameObject Left_Wall_Button;
     GameObject Right_Wall_Button;
     GameObject Top_Wall_Button;
     GameObject Slider;
     GameObject flushController;
+    public GameObject GameDirector;
 
 
     private void Start()
@@ -24,6 +27,8 @@ public class adjust_Wall_timing : MonoBehaviour
         this.Slider = GameObject.Find("Slider");
         this.flushController = GameObject.Find("FlushController");
         this.Slider.GetComponent<Slider>().maxValue = this.span * 5;
+        this.a = span / GameDirector.GetComponent<GameDirector>().first_Interval_Wall;
+        this.b = span / GameDirector.GetComponent<GameDirector>().second_Interval_Wall;
     }
 
     public void OnClicks()
@@ -42,7 +47,23 @@ public class adjust_Wall_timing : MonoBehaviour
         this.delta += Time.deltaTime;
         this.UIcounter += Time.deltaTime;
 
-        if (this.UIcounter >= 0.2f && this.Slider.GetComponent<Slider>().value < this.Slider.GetComponent<Slider>().maxValue)
+        if (this.UIcounter >= 0.2f && this.Slider.GetComponent<Slider>().value < this.Slider.GetComponent<Slider>().maxValue 
+            && GameDirector.GetComponent<GameDirector>().time > GameDirector.GetComponent<GameDirector>().first_remaining_time)
+        {
+            this.Slider.GetComponent<Slider>().value++;
+            UIcounter = 0;
+
+        }
+
+        if (this.UIcounter >= 0.2f / this.a && this.Slider.GetComponent<Slider>().value < this.Slider.GetComponent<Slider>().maxValue
+            && GameDirector.GetComponent<GameDirector>().time <= GameDirector.GetComponent<GameDirector>().first_remaining_time)
+        {
+            this.Slider.GetComponent<Slider>().value++;
+            UIcounter = 0;
+        }
+
+        if (this.UIcounter >= 0.2f / this.b && this.Slider.GetComponent<Slider>().value < this.Slider.GetComponent<Slider>().maxValue
+            && GameDirector.GetComponent<GameDirector>().time <= GameDirector.GetComponent<GameDirector>().second_remaining_time)
         {
             this.Slider.GetComponent<Slider>().value++;
             UIcounter = 0;
