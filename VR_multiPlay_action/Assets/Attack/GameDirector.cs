@@ -9,17 +9,17 @@ public class GameDirector : MonoBehaviour
     public float time;
     float time1;
     bool juggiment = true;
+    bool juggiment2 = true;
     GameObject adjustCube;
     GameObject adjustWall;
-    public GameObject LastSpurt_UI;
-    public GameObject second_LastSpurt_UI;
-    public GameObject TimeUP_UI;
-    public GameObject Start_UI;
-    public GameObject CountDown_5;
-    public GameObject CountDown_4;
-    public GameObject CountDown_3;
-    public GameObject CountDown_2;
-    public GameObject CountDown_1;
+    GameObject topbutton;
+    GameObject leftbutton;
+    GameObject rightbutton;
+    GameObject frontbutton;
+    GameObject Front_Wall_Button;
+    GameObject Top_Wall_Button;
+    GameObject Left_Wall_Button;
+    GameObject Right_Wall_Button;
     public float first_remaining_time;
     public float first_Interval_Cube;
     public float first_Interval_Wall;
@@ -28,6 +28,19 @@ public class GameDirector : MonoBehaviour
     public float second_Interval_Wall;
     float small_scall = 1.0f;
     float big_scall = 1.0f;
+    public GameObject LastSpurt_UI;
+    public GameObject second_LastSpurt_UI;
+    public GameObject TimeUP_UI;
+    public GameObject Start_UI;
+    public GameObject SpeedUP;
+    public GameObject SpeedUP2;
+    public GameObject CountDown_5;
+    public GameObject CountDown_4;
+    public GameObject CountDown_3;
+    public GameObject CountDown_2;
+    public GameObject CountDown_1;
+    public GameObject Slider;
+
 
 
     private void Start()
@@ -35,6 +48,15 @@ public class GameDirector : MonoBehaviour
         this.timerText = GameObject.Find("Time");
         adjustCube = GameObject.Find("adjust_Cube_timing");
         adjustWall = GameObject.Find("adjust_Wall_timing");
+        frontbutton = GameObject.Find("Front_Button");
+        leftbutton = GameObject.Find("Left_Button");
+        rightbutton = GameObject.Find("Right_Button");
+        topbutton = GameObject.Find("Top_Button");
+        Top_Wall_Button = GameObject.Find("Top_Wall_Button");
+        Left_Wall_Button = GameObject.Find("Left_Wall_Button");
+        Right_Wall_Button = GameObject.Find("Right_Wall_Button");
+        Front_Wall_Button = GameObject.Find("Front_Wall_Button");
+        this.Slider = GameObject.Find("Slider");
         time1 = time;
     }
 
@@ -61,7 +83,7 @@ public class GameDirector : MonoBehaviour
 
         else if (time < standard_time - 3.0f　&& juggiment == true)
         {
-            Destroy(gameUI);
+            gameUI.SetActive(false);
             this.big_scall = 1.0f;
             this.small_scall = 1.0f;
             juggiment = false;
@@ -75,11 +97,13 @@ public class GameDirector : MonoBehaviour
         if (time <= standard_time && time >= standard_time - 1.0f)
         {
             gameUI.SetActive(true);
+            juggiment2 = true;
         }
 
-        else if(time < standard_time - 1.0f)
+        else if(time < standard_time - 1.0f && juggiment2 == true)
         {
             Destroy(gameUI);
+            juggiment2 = false;
         }
     }
 
@@ -104,6 +128,11 @@ public class GameDirector : MonoBehaviour
             UIcontroller(first_remaining_time, LastSpurt_UI);
         }
 
+        if(time <= first_remaining_time - 3.1f && time >= first_remaining_time - 6.2f)
+        {
+            UIcontroller(first_remaining_time - 3.1f, SpeedUP);
+        }
+
         //一つ目に設定した残り時間になった時、インターバルを変更する
         if (time <= first_remaining_time)
         {
@@ -117,6 +146,11 @@ public class GameDirector : MonoBehaviour
             UIcontroller(second_remaining_time, second_LastSpurt_UI);
         }
 
+        if(time <= second_remaining_time - 3.1f && time >= second_remaining_time - 6.2f)
+        {
+            UIcontroller(second_remaining_time - 3.1f, SpeedUP2);
+        }
+
         //二つ目に設定した残り時間になった時、インターバルを変更する
         if (time <= second_remaining_time)
         {
@@ -125,15 +159,35 @@ public class GameDirector : MonoBehaviour
         }
 
         //カウントダウンをUIで表示する
-        UIcountDown(5.0f, CountDown_5);
-        UIcountDown(4.0f, CountDown_4);
-        UIcountDown(3.0f, CountDown_3);
-        UIcountDown(2.0f, CountDown_2);
-        UIcountDown(1.0f, CountDown_1);
+        if(time <= 5.5f && time >= 3.0f)
+        {
+            UIcountDown(5.0f, CountDown_5);
+            juggiment = true;
+        }
+
+        if (time <= 4.5f && time >= 2.0f)
+        {
+            UIcountDown(4.0f, CountDown_4);
+        }
+
+        if (time <= 3.5f && time >= 1.0f)
+        {
+            UIcountDown(3.0f, CountDown_3);
+        }
+
+        if (time <= 2.5f && time >= 0.0f)
+        {
+            UIcountDown(2.0f, CountDown_2);
+        }
+
+        if (time <= 1.5f && time >= -1.0f)
+        {
+            UIcountDown(1.0f, CountDown_1);
+        }
 
 
         //バトル終了時、バトル終了を知らせるUIを画面上に表示する
-        if(time <= 0 && time >= 0 - 3.1f)
+        if (time <= 0 && time >= 0 - 3.1f)
         {
             UIcontroller(0, TimeUP_UI);
         }
@@ -143,10 +197,24 @@ public class GameDirector : MonoBehaviour
         this.timerText.GetComponent<Text>().text =
             time.ToString("F1");
 
-      　//残り時間が0になったらタイマーを止まったように見せる
+      　//残り時間が0になったら止める処理
         if(time <= 0)
         {
-            timerText.GetComponent<Text>().text = "0";
+            timerText.GetComponent<Text>().text = "0.0";
+            topbutton.GetComponent<Button>().interactable = false;
+            frontbutton.GetComponent<Button>().interactable = false;
+            leftbutton.GetComponent<Button>().interactable = false;
+            rightbutton.GetComponent<Button>().interactable = false;
+            Top_Wall_Button.GetComponent<Button>().interactable = false;
+            Left_Wall_Button.GetComponent<Button>().interactable = false;
+            Right_Wall_Button.GetComponent<Button>().interactable = false;
+            Front_Wall_Button.GetComponent<Button>().interactable = false;
+
+            if (juggiment == true)
+            {
+                this.Slider.SetActive(false);
+                juggiment = false;
+            }
         }
 
     }

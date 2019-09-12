@@ -44,8 +44,11 @@ public class adjust_Wall_timing : MonoBehaviour
 
     private void Update()
     {
-        this.delta += Time.deltaTime;
-        this.UIcounter += Time.deltaTime;
+        if(GameDirector.GetComponent<GameDirector>().time >= 0)
+        {
+            this.delta += Time.deltaTime;
+            this.UIcounter += Time.deltaTime;
+        }
 
         if (this.UIcounter >= 0.2f && this.Slider.GetComponent<Slider>().value < this.Slider.GetComponent<Slider>().maxValue 
             && GameDirector.GetComponent<GameDirector>().time > GameDirector.GetComponent<GameDirector>().first_remaining_time)
@@ -70,7 +73,7 @@ public class adjust_Wall_timing : MonoBehaviour
         }
 
 
-        if (this.delta >= this.span)
+        if (this.delta >= this.span )
         {
             Front_Wall_Button.GetComponent<Button>().interactable = true;
             Left_Wall_Button.GetComponent<Button>().interactable = true;
