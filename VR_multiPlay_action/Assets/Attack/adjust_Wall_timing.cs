@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class adjust_Wall_timing : MonoBehaviour
 {
     public float span = 15.0f;
-    float delta = 0;
+    public float delta = 0;
     float UIcounter = 0;
     float a;
     float b;

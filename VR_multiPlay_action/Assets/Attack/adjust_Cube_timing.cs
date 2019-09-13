@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class adjust_Cube_timing : MonoBehaviour
 {
     public float span = 1.0f;
-    float delta = 0;
+    public float delta = 0;
     GameObject Front_Button;
     GameObject Left_Button;
     GameObject Right_Button;
     GameObject Top_Button;
+    public GameObject GameDirector;
 
     private void Start()
     {
@@ -31,7 +32,10 @@ public class adjust_Cube_timing : MonoBehaviour
 
     private void Update()
     {
-        this.delta += Time.deltaTime;
+        if(GameDirector.GetComponent<GameDirector>().time >= 0)
+        {
+            this.delta += Time.deltaTime;
+        }
 
         if (this.delta >= this.span)
         {

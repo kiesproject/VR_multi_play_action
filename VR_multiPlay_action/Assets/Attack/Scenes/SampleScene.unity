@@ -3558,7 +3558,8 @@ MonoBehaviour:
   CountDown_3: {fileID: 1459096353}
   CountDown_2: {fileID: 622513762}
   CountDown_1: {fileID: 1822923002}
-  Slider: {fileID: 0}
+  adjust_Cube_timing: {fileID: 1980947762}
+  adjust_Wall_timing: {fileID: 1929921775}
 --- !u!4 &1001973818
 Transform:
   m_ObjectHideFlags: 0
@@ -5518,6 +5519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   span: 8
+  delta: 0
   GameDirector: {fileID: 1001973816}
 --- !u!4 &1929921777
 Transform:
@@ -6108,6 +6110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   span: 1
+  delta: 0
+  GameDirector: {fileID: 1001973816}
 --- !u!1 &2082857924
 GameObject:
   m_ObjectHideFlags: 0

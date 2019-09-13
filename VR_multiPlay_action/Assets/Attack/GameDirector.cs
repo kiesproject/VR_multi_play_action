@@ -20,6 +20,7 @@ public class GameDirector : MonoBehaviour
     GameObject Top_Wall_Button;
     GameObject Left_Wall_Button;
     GameObject Right_Wall_Button;
+    GameObject Slider;
     public float first_remaining_time;
     public float first_Interval_Cube;
     public float first_Interval_Wall;
@@ -39,7 +40,8 @@ public class GameDirector : MonoBehaviour
     public GameObject CountDown_3;
     public GameObject CountDown_2;
     public GameObject CountDown_1;
-    public GameObject Slider;
+    public GameObject adjust_Cube_timing;
+    public GameObject adjust_Wall_timing;
 
 
 
@@ -209,6 +211,8 @@ public class GameDirector : MonoBehaviour
             Left_Wall_Button.GetComponent<Button>().interactable = false;
             Right_Wall_Button.GetComponent<Button>().interactable = false;
             Front_Wall_Button.GetComponent<Button>().interactable = false;
+            adjust_Cube_timing.GetComponent<adjust_Cube_timing>().delta = 0;
+            adjust_Wall_timing.GetComponent<adjust_Wall_timing>().delta = 0;
 
             if (juggiment == true)
             {
