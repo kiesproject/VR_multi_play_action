@@ -5,15 +5,7 @@ using UnityEngine.UI;
 
 public class Throw_Controller : MonoBehaviour
 {
-    TopCube_Generator topCube;
-    LeftCube_Generator leftCube;
-    RightCube_Generator rightCube;
-    FrontCube_Generator frontCube;
-
-    TopWall_Generator topWall;
-    LeftWall_Generator leftWall;
-    RightWall_Generator rightWall;
-    FrontWall_Generator frontWall;
+    Generator generator;
 
     adjust_Cube_timing adjust;
     adjust_Wall_timing adjustWall;
@@ -23,15 +15,7 @@ public class Throw_Controller : MonoBehaviour
 
     void Start()
     {
-        this.topCube = GameObject.Find("TopCube_Generator").GetComponent<TopCube_Generator>();
-        this.leftCube = GameObject.Find("LeftCube_Generator").GetComponent<LeftCube_Generator>();
-        this.rightCube = GameObject.Find("RightCube_Generator").GetComponent<RightCube_Generator>();
-        this.frontCube = GameObject.Find("FrontCube_Generator").GetComponent<FrontCube_Generator>();
-
-        this.topWall = GameObject.Find("TopWall_Generator").GetComponent<TopWall_Generator>();
-        this.leftWall = GameObject.Find("LeftWall_Generator").GetComponent<LeftWall_Generator>();
-        this.rightWall = GameObject.Find("RightWall_Generator").GetComponent<RightWall_Generator>();
-        this.frontWall = GameObject.Find("FrontWall_Generator").GetComponent<FrontWall_Generator>();
+        this.generator = GameObject.Find("Generator").GetComponent<Generator>();
 
         this.adjust = GameObject.Find("adjust_Cube_timing").GetComponent<adjust_Cube_timing>();
         this.adjustWall = GameObject.Find("adjust_Wall_timing").GetComponent<adjust_Wall_timing>();
@@ -52,51 +36,51 @@ public class Throw_Controller : MonoBehaviour
         //通常攻撃
         if (Input.GetKeyDown(KeyCode.UpArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
-            this.frontCube.OnClick();
+            this.generator.front_OnClick();
             adjust.OnClicks();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
-            this.leftCube.OnClick();
+            this.generator.left_OnClick();
             adjust.OnClicks();
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
-            this.rightCube.OnClick();
+            this.generator.right_OnClick();
             adjust.OnClicks();
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
-            this.topCube.OnClick();
+            this.generator.top_OnClick();
             adjust.OnClicks();
         }
 
         //壁を出す
         else if (Input.GetKey(KeyCode.UpArrow) && (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)) && Front_Wall_Button.GetComponent<Button>().interactable == true)
         {
-            this.frontWall.Wall_OnClick();
+            this.generator.frontWall_OnClick();
             adjustWall.OnClicks();
 
         }
 
         else if (Input.GetKey(KeyCode.LeftArrow) && (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)) && Front_Wall_Button.GetComponent<Button>().interactable == true)
         {
-            this.leftWall.Wall_OnClick();
+            this.generator.leftWall_OnClick();
             adjustWall.OnClicks();
         }
 
         else if (Input.GetKey(KeyCode.RightArrow) && (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)) && Front_Wall_Button.GetComponent<Button>().interactable == true)
         {
-            this.rightWall.Wall_OnClick();
+            this.generator.rightWall_OnClick();
             adjustWall.OnClicks();
         }
 
         else if (Input.GetKey(KeyCode.DownArrow) && (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift)) && Front_Wall_Button.GetComponent<Button>().interactable == true)
         {
-            this.topWall.Wall_OnClick();
+            this.generator.topWall_OnClick();
             adjustWall.OnClicks();
 
         }
