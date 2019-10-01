@@ -16,6 +16,7 @@ public class adjust_Wall_timing : MonoBehaviour
     GameObject Slider;
     GameObject flushController;
     public GameObject GameDirector;
+    public GameObject adjust_Cube_timing;
 
 
     private void Start()
@@ -29,6 +30,7 @@ public class adjust_Wall_timing : MonoBehaviour
         this.Slider.GetComponent<Slider>().maxValue = this.span * 5;
         this.a = span / GameDirector.GetComponent<GameDirector>().first_Interval_Wall;
         this.b = span / GameDirector.GetComponent<GameDirector>().second_Interval_Wall;
+        
     }
 
     public void OnClicks()
@@ -40,6 +42,7 @@ public class adjust_Wall_timing : MonoBehaviour
         this.Slider.GetComponent<Slider>().value = 0;
         this.delta = 0;
         this.flushController.GetComponent<FlushController>().once = true;
+        adjust_Cube_timing.GetComponent<adjust_Cube_timing>().OnClicks();
     }
 
     private void Update()
@@ -58,6 +61,7 @@ public class adjust_Wall_timing : MonoBehaviour
 
         }
 
+        //first_remaining_timeに突入した際にインターバルを変更する
         if (this.UIcounter >= 0.2f / this.a && this.Slider.GetComponent<Slider>().value < this.Slider.GetComponent<Slider>().maxValue
             && GameDirector.GetComponent<GameDirector>().time <= GameDirector.GetComponent<GameDirector>().first_remaining_time)
         {
@@ -65,6 +69,7 @@ public class adjust_Wall_timing : MonoBehaviour
             UIcounter = 0;
         }
 
+        //second_remaining_timeに突入した際にインターバルを変更する
         if (this.UIcounter >= 0.2f / this.b && this.Slider.GetComponent<Slider>().value < this.Slider.GetComponent<Slider>().maxValue
             && GameDirector.GetComponent<GameDirector>().time <= GameDirector.GetComponent<GameDirector>().second_remaining_time)
         {
@@ -73,7 +78,7 @@ public class adjust_Wall_timing : MonoBehaviour
         }
 
 
-        if (this.delta >= this.span )
+        if (this.Slider.GetComponent<Slider>().value == this.Slider.GetComponent<Slider>().maxValue)
         {
             Front_Wall_Button.GetComponent<Button>().interactable = true;
             Left_Wall_Button.GetComponent<Button>().interactable = true;
