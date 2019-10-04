@@ -16,9 +16,6 @@ using UnityEngine.UI;
 /// 
 /// 
 /// </summary>
-/// 
-
-
 public class GameController : MonoBehaviour
 {
     //自身のインスタンスを入れる変数をStaticで宣言。
@@ -35,7 +32,10 @@ public class GameController : MonoBehaviour
     State state;
 
     //ここで制限時間を宣言している
-    public float _time = 20.0f;
+    [SerializeField] float _time = 20.0f;
+    float t;
+    [SerializeField] float first_remaining_time;
+    [SerializeField] float second_remaining_time;
 
     //目標値を宣言
     [SerializeField] int Target_value = 10;
@@ -47,6 +47,13 @@ public class GameController : MonoBehaviour
 
     //UI elements
     [SerializeField] Text hitCountBoard;
+    [SerializeField] Text Start_UI;
+    [SerializeField] Text LastSpurt_UI;
+    [SerializeField] Text second_LastSpurt_UI;
+    [SerializeField] Text SpeedUP;
+    [SerializeField] Text SpeedUP2;
+    
+
 
 
     //シーン変遷でゲームコントローラーが消えないようにしている
@@ -110,7 +117,118 @@ public class GameController : MonoBehaviour
         _time -= Time.deltaTime;
         //Debug.Log(t);
 
+        //ゲーム開始のUIを画面上に表示する
+        if (t <= _time && t >= _time - 3.1f)
+        {
+            UIcontroller(_time, Start_UI);
+        }
+
+        //一つ目に設定した残り時間になったことをUIで表示する
+        if (t <= first_remaining_time && t >= first_remaining_time - 3.1f)
+        {
+            UIcontroller(first_remaining_time, LastSpurt_UI);
+        }
+
+        if (t <= first_remaining_time - 3.1f && t >= first_remaining_time - 6.2f)
+        {
+            UIcontroller(first_remaining_time - 3.1f, SpeedUP);
+        }
+
+        //一つ目に設定した残り時間になった時、インターバルを変更する
+        if (t <= first_remaining_time)
+        {
+            adjustCube.GetComponent<adjust_Cube_timing>().span = first_Interval_Cube;
+            adjustWall.GetComponent<adjust_Wall_timing>().span = first_Interval_Wall;
+        }
+
+        //二つ目に設定した残り時間になったことをUIで表示する
+        if (t <= second_remaining_time && t >= second_remaining_time - 3.1f)
+        {
+            UIcontroller(second_remaining_time, second_LastSpurt_UI);
+        }
+
+        if (t <= second_remaining_time - 3.1f && t >= second_remaining_time - 6.2f)
+        {
+            UIcontroller(second_remaining_time - 3.1f, SpeedUP2);
+        }
+
+        //二つ目に設定した残り時間になった時、インターバルを変更する
+        if (t <= second_remaining_time)
+        {
+            adjustCube.GetComponent<adjust_Cube_timing>().span = second_Interval_Cube;
+            adjustWall.GetComponent<adjust_Wall_timing>().span = second_Interval_Wall;
+        }
+
+        //カウントダウンをUIで表示する
+        if (t <= 5.5f && t >= 3.0f)
+        {
+            UIcountDown(5.0f, CountDown_5);
+            juggiment = true;
+        }
+
+        if (t <= 4.5f && t >= 2.0f)
+        {
+            UIcountDown(4.0f, CountDown_4);
+        }
+
+        if (t <= 3.5f && t >= 1.0f)
+        {
+            UIcountDown(3.0f, CountDown_3);
+        }
+
+        if (t <= 2.5f && t >= 0.0f)
+        {
+            UIcountDown(2.0f, CountDown_2);
+        }
+
+        if (t <= 1.5f && t >= -1.0f)
+        {
+            UIcountDown(1.0f, CountDown_1);
+        }
+
         if (_time < 0) GameOver();
+    }
+
+    public void UIcontroller(float standard_time, Text gameUI)
+    {
+        if (t <= standard_time && t >= standard_time - 1.7)
+        {
+            gameUI.gameObject.SetActive(true);
+            if (gameUI.transform.localScale.x <= 1.1f)
+            {
+                gameUI.transform.localScale = new Vector3(big_scall, big_scall, big_scall);
+                this.big_scall *= 1.002f;
+            }
+        }
+        else if (t < standard_time - 1.7f && t >= standard_time - 3.0f)
+        {
+            gameUI.transform.localScale = new Vector3(small_scall, small_scall, small_scall);
+            this.small_scall *= 0.8f;
+            this.juggiment = true;
+        }
+        else if (t < standard_time - 3.0f && juggiment == true)
+        {
+            gameUI.SetActive(false);
+            this.big_scall = 1.0f;
+            this.small_scall = 1.0f;
+            juggiment = false;
+        }
+    }
+
+
+    //上記のやつを少し変えたやつ
+    public void UIcountDown(float standard_time, GameObject gameUI)
+    {
+        if (t <= standard_time && t >= standard_time - 1.0f)
+        {
+            gameUI.SetActive(true);
+            juggiment2 = true;
+        }
+        else if (t < standard_time - 1.0f && juggiment2 == true)
+        {
+            Destroy(gameUI);
+            juggiment2 = false;
+        }
     }
 
     //Refereeingは勝利の判定、攻撃側のノルマ達成を判定している
@@ -147,12 +265,13 @@ public class GameController : MonoBehaviour
     /// hitCount(あたった回数)をスコアタグのついているTextUIに表示する、
     /// Textを変えて、勝利した側を表示。
     /// </summary>
-
     void GameOver()
     {
         state = State.End;
+
         hitCountBoard = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
         hitCountBoard.text = "ヒット回数" + hitCount;
+
         if (Attacker_win)
         {
             hitCountBoard.text = hitCountBoard.text + "\nAttacker Win!!!";
@@ -164,14 +283,11 @@ public class GameController : MonoBehaviour
 
         hitCountBoard.enabled = true;
     }
-
-
-
+    
     //外部から呼び出せるようになっている、
     //防御側でアイテムが当たったら呼び出してhitcountを+1する。
     public void PlayerHit()
     {
         hitCount++;
     }
-
 }

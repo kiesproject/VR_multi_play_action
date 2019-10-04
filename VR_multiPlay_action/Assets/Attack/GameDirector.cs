@@ -73,16 +73,13 @@ public class GameDirector : MonoBehaviour
                 gameUI.transform.localScale = new Vector3(big_scall, big_scall, big_scall);
                 this.big_scall *= 1.002f;
             }
-
         }
-
         else if (time < standard_time - 1.7f && time >= standard_time - 3.0f)
         {
             gameUI.transform.localScale = new Vector3(small_scall, small_scall, small_scall);
             this.small_scall *= 0.8f;
             this.juggiment = true;
         }
-
         else if (time < standard_time - 3.0f　&& juggiment == true)
         {
             gameUI.SetActive(false);
@@ -101,7 +98,6 @@ public class GameDirector : MonoBehaviour
             gameUI.SetActive(true);
             juggiment2 = true;
         }
-
         else if(time < standard_time - 1.0f && juggiment2 == true)
         {
             Destroy(gameUI);
