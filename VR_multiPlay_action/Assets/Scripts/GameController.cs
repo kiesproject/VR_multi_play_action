@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour
             case State.End:
                 Debug.Log("End");
 
-                if (Input.GetMouseButtonDown(0)) Reload();
+                //if (Input.GetMouseButtonDown(0)) Reload();
 
                 break;
         }

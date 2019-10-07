@@ -33,12 +33,19 @@ public class adjust_Cube_timing : MonoBehaviour
             this.delta += Time.deltaTime;
         }
 
+        float Amount = delta / span;
+
+        uiDirector.frontbutton.image.fillAmount = Amount;
+        uiDirector.leftbutton.image.fillAmount = Amount;
+        uiDirector.rightbutton.image.fillAmount = Amount;
+        uiDirector.topbutton.image.fillAmount = Amount;
+
         if (this.delta >= this.span)
         {
-            Front_Button.GetComponent<Button>().interactable = true;
-            Left_Button.GetComponent<Button>().interactable = true;
-            Right_Button.GetComponent<Button>().interactable = true;
-            Top_Button.GetComponent<Button>().interactable = true;
+            uiDirector.frontbutton.interactable = true;
+            uiDirector.leftbutton.interactable = true;
+            uiDirector.rightbutton.interactable = true;
+            uiDirector.topbutton.interactable = true;
         }
 
     }
