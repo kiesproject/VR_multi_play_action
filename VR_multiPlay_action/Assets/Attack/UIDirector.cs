@@ -11,8 +11,7 @@ public class UIDirector : MonoBehaviour
 
     bool juggiment = true;
     bool juggiment2 = true;
-    [SerializeField] GameObject adjustCube;
-    [SerializeField] GameObject adjustWall;
+    [SerializeField] adjust_Cube_timing adjustCube;
 
     [SerializeField] Text timerText;
 
@@ -134,8 +133,8 @@ public class UIDirector : MonoBehaviour
         //一つ目に設定した残り時間になった時、インターバルを変更する
         if (gameController._time <= first_remaining_time)
         {
-            adjustCube.GetComponent<adjust_Cube_timing>().span = first_Interval_Cube;
-            adjustWall.GetComponent<adjust_Wall_timing>().span = first_Interval_Wall;
+            adjustCube.nomal_span = first_Interval_Cube;
+            adjustCube.wall_span = first_Interval_Wall;
         }
 
         //二つ目に設定した残り時間になったことをUIで表示する
@@ -152,8 +151,8 @@ public class UIDirector : MonoBehaviour
         //二つ目に設定した残り時間になった時、インターバルを変更する
         if (gameController._time <= second_remaining_time)
         {
-            adjustCube.GetComponent<adjust_Cube_timing>().span = second_Interval_Cube;
-            adjustWall.GetComponent<adjust_Wall_timing>().span = second_Interval_Wall;
+            adjustCube.nomal_span = second_Interval_Cube;
+            adjustCube.wall_span = second_Interval_Wall;
         }
 
         //カウントダウンをUIで表示する
@@ -206,7 +205,7 @@ public class UIDirector : MonoBehaviour
             Left_Wall_Button.interactable = false;
             Right_Wall_Button.interactable = false;
             Front_Wall_Button.interactable = false;
-            adjust_Cube_timing.GetComponent<adjust_Cube_timing>().delta = 0;
+            adjust_Cube_timing.GetComponent<adjust_Cube_timing>().nomal_delta = 0;
             adjust_Wall_timing.GetComponent<adjust_Wall_timing>().delta = 0;
 
             if (juggiment == true)

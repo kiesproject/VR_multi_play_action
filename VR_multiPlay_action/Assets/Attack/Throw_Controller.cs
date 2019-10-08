@@ -37,25 +37,25 @@ public class Throw_Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
             this.generator.front_OnClick();
-            adjust.OnClicks();
+            adjust.NomalOnClicks();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
             this.generator.left_OnClick();
-            adjust.OnClicks();
+            adjust.NomalOnClicks();
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
             this.generator.right_OnClick();
-            adjust.OnClicks();
+            adjust.NomalOnClicks();
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow) && this.juggiment == false && Front_Button.GetComponent<Button>().interactable == true)
         {
             this.generator.top_OnClick();
-            adjust.OnClicks();
+            adjust.NomalOnClicks();
         }
 
         //壁を出す

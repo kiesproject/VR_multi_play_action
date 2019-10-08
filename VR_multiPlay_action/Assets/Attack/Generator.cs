@@ -10,11 +10,11 @@ public class Generator : MonoBehaviour
     public GameObject[] wall_Throw_Object;
     private float lastMovingTime = 0;
     private int wall_dice;
-    adjust_Wall_timing timing;
+    [SerializeField] adjust_Cube_timing timing;
 
     private void Start()
     {
-        this.timing = GameObject.Find("adjust_Wall_timing").GetComponent<adjust_Wall_timing>();
+
     }
 
     public void OnClick(int a, int b, int c, float d, float e, float f)
@@ -28,7 +28,7 @@ public class Generator : MonoBehaviour
 
     public void Wall_OnClick(int a, int b, int c, float d, float e, float f)
     {
-        if (Time.realtimeSinceStartup - this.lastMovingTime > timing.span)
+        if (Time.realtimeSinceStartup - this.lastMovingTime > timing.wall_span)
         {
             this.wall_dice = Random.Range(0, wall_Throw_Object.Length);
             int x = a;

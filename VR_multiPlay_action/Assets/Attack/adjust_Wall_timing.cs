@@ -47,7 +47,7 @@ public class adjust_Wall_timing : MonoBehaviour
         this.Slider.GetComponent<Slider>().value = 0;
         this.delta = 0;
         this.flushController.GetComponent<FlushController>().once = true;
-        adjust_Cube_timing.GetComponent<adjust_Cube_timing>().OnClicks();
+        adjust_Cube_timing.GetComponent<adjust_Cube_timing>().NomalOnClicks();
     }
 
     private void Update()
