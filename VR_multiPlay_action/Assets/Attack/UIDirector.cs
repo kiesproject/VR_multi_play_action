@@ -29,11 +29,7 @@ public class UIDirector : MonoBehaviour
     [SerializeField] Text TimeUP_UI;
     [SerializeField] Text Start_UI;
     [SerializeField] Text SpeedUP;
-    [SerializeField] Text CountDown_5;
-    [SerializeField] Text CountDown_4;
-    [SerializeField] Text CountDown_3;
-    [SerializeField] Text CountDown_2;
-    [SerializeField] Text CountDown_1;
+    [SerializeField] Text[] CountDownTexts = new Text[5];
 
     float small_scall = 1.0f;
     float big_scall = 1.0f;
@@ -147,28 +143,28 @@ public class UIDirector : MonoBehaviour
         //カウントダウンをUIで表示する
         if(gameController._time <= 5.5f && gameController._time >= 3.0f)
         {
-            UIcountDown(5.0f, CountDown_5);
+            UIcountDown(5.0f, CountDownTexts[0]);
             juggiment = true;
         }
 
         if (gameController._time <= 4.5f && gameController._time >= 2.0f)
         {
-            UIcountDown(4.0f, CountDown_4);
+            UIcountDown(4.0f, CountDownTexts[1]);
         }
 
         if (gameController._time <= 3.5f && gameController._time >= 1.0f)
         {
-            UIcountDown(3.0f, CountDown_3);
+            UIcountDown(3.0f, CountDownTexts[2]);
         }
 
         if (gameController._time <= 2.5f && gameController._time >= 0.0f)
         {
-            UIcountDown(2.0f, CountDown_2);
+            UIcountDown(2.0f, CountDownTexts[3]);
         }
 
         if (gameController._time <= 1.5f && gameController._time >= -1.0f)
         {
-            UIcountDown(1.0f, CountDown_1);
+            UIcountDown(1.0f, CountDownTexts[4]);
         }
 
 

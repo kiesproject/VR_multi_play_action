@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3251,11 +3251,12 @@ MonoBehaviour:
   TimeUP_UI: {fileID: 2114582020}
   Start_UI: {fileID: 25279608}
   SpeedUP: {fileID: 1087216682}
-  CountDown_5: {fileID: 1930278700}
-  CountDown_4: {fileID: 573520981}
-  CountDown_3: {fileID: 1459096355}
-  CountDown_2: {fileID: 622513764}
-  CountDown_1: {fileID: 1822923004}
+  CountDownTexts:
+  - {fileID: 1930278700}
+  - {fileID: 573520981}
+  - {fileID: 1459096355}
+  - {fileID: 622513764}
+  - {fileID: 1822923004}
   first_remaining_time: 30
   first_Interval_Cube: 0.7
   first_Interval_Wall: 5
