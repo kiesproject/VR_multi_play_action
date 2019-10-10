@@ -20,10 +20,7 @@ public class Generator : MonoBehaviour
     public void OnClick(int a, int b, int c, float d, float e, float f)
     {
         this.dice = Random.Range(0, Throw_Object.Length);
-        int x = a;
-        int y = b;
-        int z = c;
-        GameObject go = Instantiate(Throw_Object[dice], new Vector3(x, y, z), Quaternion.Euler(d, e, f)) as GameObject;
+        GameObject go = Instantiate(Throw_Object[dice], new Vector3(a, b, c), Quaternion.Euler(d, e, f)) as GameObject;
     }
 
     public void Wall_OnClick(int a, int b, int c, float d, float e, float f)
@@ -31,10 +28,7 @@ public class Generator : MonoBehaviour
         if (Time.realtimeSinceStartup - this.lastMovingTime > timing.wall_span)
         {
             this.wall_dice = Random.Range(0, wall_Throw_Object.Length);
-            int x = a;
-            int y = b;
-            int z = c;
-            GameObject go = Instantiate(wall_Throw_Object[wall_dice], new Vector3(x, y, z), Quaternion.Euler(d, e, f)) as GameObject;
+            GameObject go = Instantiate(wall_Throw_Object[wall_dice], new Vector3(a, b, c), Quaternion.Euler(d, e, f)) as GameObject;
             lastMovingTime = Time.realtimeSinceStartup;
         }
     }
