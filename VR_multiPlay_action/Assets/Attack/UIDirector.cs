@@ -23,23 +23,17 @@ public class UIDirector : MonoBehaviour
     public Button Top_Wall_Button;
     public Button Left_Wall_Button;
     public Button Right_Wall_Button;
-
-    [SerializeField] Slider slider;
     
     [SerializeField] Text LastSpurt_UI;
     [SerializeField] Text second_LastSpurt_UI;
     [SerializeField] Text TimeUP_UI;
     [SerializeField] Text Start_UI;
     [SerializeField] Text SpeedUP;
-    [SerializeField] Text SpeedUP2;
     [SerializeField] Text CountDown_5;
     [SerializeField] Text CountDown_4;
     [SerializeField] Text CountDown_3;
     [SerializeField] Text CountDown_2;
     [SerializeField] Text CountDown_1;
-
-    public GameObject adjust_Cube_timing;
-    public GameObject adjust_Wall_timing;
 
     float small_scall = 1.0f;
     float big_scall = 1.0f;
@@ -99,7 +93,7 @@ public class UIDirector : MonoBehaviour
         }
         else if(gameController._time < standard_time - 1.0f && juggiment2 == true)
         {
-            Destroy(gameUI);
+            gameUI.gameObject.SetActive(false);
             juggiment2 = false;
         }
     }
@@ -108,11 +102,6 @@ public class UIDirector : MonoBehaviour
 
     private void Update()
     {
-        if(gameController._time >= -3.5f)
-        {
-            gameController._time -= Time.deltaTime;
-        }
-
         //ゲーム開始のUIを画面上に表示する
         if(gameController._time <= startTime && gameController._time >= startTime - 3.1f)
         {
@@ -145,7 +134,7 @@ public class UIDirector : MonoBehaviour
 
         if(gameController._time <= second_remaining_time - 3.1f && gameController._time >= second_remaining_time - 6.2f)
         {
-            UIcontroller(second_remaining_time - 3.1f, SpeedUP2);
+            UIcontroller(second_remaining_time - 3.1f, SpeedUP);
         }
 
         //二つ目に設定した残り時間になった時、インターバルを変更する
@@ -205,15 +194,13 @@ public class UIDirector : MonoBehaviour
             Left_Wall_Button.interactable = false;
             Right_Wall_Button.interactable = false;
             Front_Wall_Button.interactable = false;
-            adjust_Cube_timing.GetComponent<adjust_Cube_timing>().nomal_delta = 0;
-            adjust_Wall_timing.GetComponent<adjust_Wall_timing>().delta = 0;
+
+            adjustCube.nomal_delta = 0;
 
             if (juggiment == true)
             {
-                this.slider.gameObject.SetActive(false);
                 juggiment = false;
             }
         }
-
     }
 }
