@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour
     //目標値を宣言
     [SerializeField] int Target_value = 10;
     //hitCount(あたった回数)を初期化
-    [SerializeField] int hitCount = 0;
+    [SerializeField] int hitCount;
 
     //攻撃側の勝利フラグ
     bool Attacker_win = false;
@@ -57,6 +57,7 @@ public class GameController : MonoBehaviour
     {
         //最初はReadyからスタート
         Ready();
+        hitCount = 0;
     }
 
     // Update is called once per frame
@@ -73,7 +74,7 @@ public class GameController : MonoBehaviour
                 Debug.Log("Ready");
 
                 //GameStartメソッドを呼び出している、これによりシーンをGameManagerTestシーンへ変遷している
-                if (Input.GetMouseButtonDown(0)) GameStart();
+                if (Input.GetKeyDown(KeyCode.Space)) GameStart();
 
                 break;
 
@@ -82,6 +83,8 @@ public class GameController : MonoBehaviour
                 Debug.Log("Play!!");
                 Refereeing();
                 OnPlaying();
+
+                Debug.Log(hitCount);
 
                 break;
 
@@ -106,7 +109,7 @@ public class GameController : MonoBehaviour
         _time -= Time.deltaTime;
         
 
-        if (_time < 0) GameOver();
+        if (_time <= 0) GameOver();
     }
 
     //Refereeingは勝利の判定、攻撃側のノルマ達成を判定している

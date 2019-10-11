@@ -29,5 +29,10 @@ public class TimerBoard : MonoBehaviour
         //制限時間を0詰めで十の位までと小数点第二位までの書式で表示。
         //(0:が桁がない部分は0で埋めるの意味、00.00はそれぞれの桁数を表している)
         TimerText.text = string.Format("{0:00.00}", gameController._time);
+
+        if(gameController._time <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

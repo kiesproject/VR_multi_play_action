@@ -35,7 +35,7 @@ public class Generator : MonoBehaviour
 
     public void front_OnClick()
     {
-        OnClick(Random.Range(-1, 2), Random.Range(-1, 2), distance, 0f, 180f, 0f);
+        OnClick(Random.Range(-1, 2), Random.Range(-1, 0), distance, 0f, 180f, 0f);
     }
 
     public void top_OnClick()
@@ -45,12 +45,12 @@ public class Generator : MonoBehaviour
 
     public void left_OnClick()
     {
-        OnClick(-distance, Random.Range(-1, 2), Random.Range(-1, 2), 0f, 90f, 0f);
+        OnClick(-distance, Random.Range(-1, 0), Random.Range(-1, 0), 0f, 90f, 0f);
     }
 
     public void right_OnClick()
     {
-        OnClick(distance, Random.Range(-1, 2), Random.Range(-1, 2), 0f, -90f, 0f);
+        OnClick(distance, Random.Range(-1, 0), Random.Range(-1, 2), 0f, -90f, 0f);
     }
 
     public void frontWall_OnClick()
