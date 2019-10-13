@@ -41,7 +41,7 @@ public class adjust_Cube_timing : MonoBehaviour
 
     private void Update()
     {
-        if(gameController._time >= 0)
+        if(gameController.state == GameController.State.Play)
         {
             this.nomal_delta += Time.deltaTime;
             this.wall_delta += Time.deltaTime;

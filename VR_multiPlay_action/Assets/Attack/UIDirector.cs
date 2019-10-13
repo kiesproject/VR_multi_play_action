@@ -99,7 +99,7 @@ public class UIDirector : MonoBehaviour
     private void Update()
     {
         //ゲーム開始のUIを画面上に表示する
-        if(gameController._time <= startTime && gameController._time >= startTime - 3.1f)
+        if(gameController.state == GameController.State.Play && gameController._time >= startTime - 3.1f)
         {
             UIcontroller(startTime, Start_UI);
         }
