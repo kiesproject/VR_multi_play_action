@@ -38,7 +38,7 @@ public class ObjectController : MonoBehaviour
         {
             if (speedx <= maxspeed || speedy <= maxspeed || speedz <= maxspeed)
             {
-                rigidbody.AddForce(transform.forward * spead, ForceMode.Force);
+                rigidbody.AddForce(transform.forward * spead * Time.deltaTime, ForceMode.Force);
             }
         }
         else
