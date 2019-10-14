@@ -4,30 +4,37 @@ using UnityEngine;
 
 public class ObjectController : MonoBehaviour
 {
-    public float spead = 10;
+    [SerializeField] float spead = 10;
+    [SerializeField] float maxspeed = 1000;
+
     Vector3 distance;
     Vector3 startPos;
-    public float maxspeed = 1000;
 
     Generator generator;
     GameController gameController;
 
     Rigidbody rigidbody;
 
+    Transform ParentTransform;
+
     bool hitFlag = false;
     [SerializeField] float lifeTime = 5.0f;
 
+    [SerializeField] Vector3 RotateAngle = Vector3.zero;
+
     private void Start()
     {
-        startPos = transform.position;
+        ParentTransform = transform.root;
+
+        startPos = ParentTransform.position;
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         generator = GameObject.FindGameObjectWithTag("Generator").GetComponent<Generator>();
-        rigidbody = GetComponent<Rigidbody>();
-        
+        rigidbody = ParentTransform.gameObject.GetComponent<Rigidbody>();
     }
     void Update()
     {
-        this.distance = startPos - transform.position;
+        
+        this.distance = startPos - ParentTransform.position;
         float len = distance.magnitude;
 
         float speedx = Mathf.Abs(rigidbody.velocity.x);
@@ -38,7 +45,7 @@ public class ObjectController : MonoBehaviour
         {
             if (speedx <= maxspeed || speedy <= maxspeed || speedz <= maxspeed)
             {
-                rigidbody.AddForce(transform.forward * spead * Time.deltaTime, ForceMode.Force);
+                rigidbody.AddForce(ParentTransform.forward * spead * Time.deltaTime, ForceMode.Force);
             }
         }
         else
