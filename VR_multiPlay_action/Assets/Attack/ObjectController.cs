@@ -15,8 +15,6 @@ public class ObjectController : MonoBehaviour
 
     Rigidbody rigidbody;
 
-    Transform ParentTransform;
-
     bool hitFlag = false;
     [SerializeField] float lifeTime = 5.0f;
 
@@ -24,41 +22,36 @@ public class ObjectController : MonoBehaviour
 
     private void Start()
     {
-        ParentTransform = transform.root;
-
-        startPos = ParentTransform.position;
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         generator = GameObject.FindGameObjectWithTag("Generator").GetComponent<Generator>();
-        rigidbody = ParentTransform.gameObject.GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();
+
+        startPos = transform.position;
+
+        rigidbody.AddForce(transform.forward * spead, ForceMode.Impulse);
     }
+
     void Update()
     {
-        
-        this.distance = startPos - ParentTransform.position;
+        this.distance = startPos - transform.position;
         float len = distance.magnitude;
-
-        float speedx = Mathf.Abs(rigidbody.velocity.x);
-        float speedy = Mathf.Abs(rigidbody.velocity.y);
-        float speedz = Mathf.Abs(rigidbody.velocity.z);
-
-        if(hitFlag == false)
-        {
-            if (speedx <= maxspeed || speedy <= maxspeed || speedz <= maxspeed)
-            {
-                rigidbody.AddForce(ParentTransform.forward * spead * Time.deltaTime, ForceMode.Force);
-            }
-        }
-        else
+       
+        if(hitFlag == true)
         {
             lifeTime -= Time.deltaTime;
-            if(lifeTime < 0)
+            if (lifeTime < 0)
             {
                 Destroy(this.gameObject);
             }
         }
-
-        if (len >= generator.GetComponent<Generator>().distance)
+        else
         {
+            rigidbody.AddTorque(RotateAngle * Time.deltaTime);
+        }
+
+        if (len >= generator.distance)
+        {
+            Debug.Log("DESTROY");
             Destroy(gameObject);
         }
     }

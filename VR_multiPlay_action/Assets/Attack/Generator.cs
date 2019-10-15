@@ -12,11 +12,6 @@ public class Generator : MonoBehaviour
     private int wall_dice;
     [SerializeField] adjust_Cube_timing timing;
 
-    private void Start()
-    {
-
-    }
-
     public void OnClick(int a, int b, int c, float d, float e, float f)
     {
         this.dice = Random.Range(0, Throw_Object.Length);
