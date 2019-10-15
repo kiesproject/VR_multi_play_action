@@ -7,7 +7,6 @@ public class Weak : MonoBehaviour
     public readonly float maxwHP = 1;
     public float wHP;
     private GameObject parent;
-    public GameObject[] wallr;
     
     
     private void Start()
@@ -33,7 +32,7 @@ public class Weak : MonoBehaviour
 
         if (wHP <= 0)
         {
-            Destroy( parent);
+            Destroy(parent);
         }
 
     }

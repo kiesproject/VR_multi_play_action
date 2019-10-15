@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 
 public class shooting : MonoBehaviour
 {
@@ -10,9 +11,11 @@ public class shooting : MonoBehaviour
     public float reloadtime = 3.0f;
     public float time = 0f;
 
+    private SteamVR_Action_Boolean steamActionBool = SteamVR_Actions._default.InteractUI;
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (steamActionBool.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
             if (shotCount > 0)
             {
