@@ -5,45 +5,75 @@ using UnityEngine.UI;
 
 public class adjust_Cube_timing : MonoBehaviour
 {
-    public float span = 1.0f;
-    public float delta = 0;
-    GameObject Front_Button;
-    GameObject Left_Button;
-    GameObject Right_Button;
-    GameObject Top_Button;
-    public GameObject GameDirector;
+    public float nomal_span = 1.0f;
+    public float wall_span = 15.0f;
+    public float nomal_delta = 0;
+    public float wall_delta = 0;
+
+    [SerializeField] UIDirector uiDirector;
+
+    GameController gameController;
 
     private void Start()
     {
-        this.Front_Button = GameObject.Find("Front_Button");
-        this.Left_Button = GameObject.Find("Left_Button");
-        this.Right_Button = GameObject.Find("Right_Button");
-        this.Top_Button = GameObject.Find("Top_Button");
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
-    public void OnClicks()
+    public void NomalOnClicks()
     {
-        Front_Button.GetComponent<Button>().interactable = false;
-        Left_Button.GetComponent<Button>().interactable = false;
-        Right_Button.GetComponent<Button>().interactable = false;
-        Top_Button.GetComponent<Button>().interactable = false;
-        this.delta = 0;
+        uiDirector.frontbutton.interactable = false;
+        uiDirector.leftbutton.interactable = false;
+        uiDirector.rightbutton.interactable = false;
+        uiDirector.topbutton.interactable = false;
+
+        this.nomal_delta = 0;
+    }
+
+    public void WallOnClicks()
+    {
+        uiDirector.Front_Wall_Button.interactable = false;
+        uiDirector.Left_Wall_Button.interactable = false;
+        uiDirector.Right_Wall_Button.interactable = false;
+        uiDirector.Top_Wall_Button.interactable = false;
+
+        this.wall_delta = 0;
     }
 
     private void Update()
     {
-        if(GameDirector.GetComponent<GameDirector>().time >= 0)
+        if(gameController.state == GameController.State.Play)
         {
-            this.delta += Time.deltaTime;
+            this.nomal_delta += Time.deltaTime;
+            this.wall_delta += Time.deltaTime;
         }
 
-        if (this.delta >= this.span)
-        {
-            Front_Button.GetComponent<Button>().interactable = true;
-            Left_Button.GetComponent<Button>().interactable = true;
-            Right_Button.GetComponent<Button>().interactable = true;
-            Top_Button.GetComponent<Button>().interactable = true;
+        float nomalAmount = nomal_delta / nomal_span;
+        float wallAmount = wall_delta / wall_span;
 
+        uiDirector.frontbutton.image.fillAmount = nomalAmount;
+        uiDirector.leftbutton.image.fillAmount = nomalAmount;
+        uiDirector.rightbutton.image.fillAmount = nomalAmount;
+        uiDirector.topbutton.image.fillAmount = nomalAmount;
+
+        uiDirector.Front_Wall_Button.image.fillAmount = wallAmount;
+        uiDirector.Left_Wall_Button.image.fillAmount = wallAmount;
+        uiDirector.Right_Wall_Button.image.fillAmount = wallAmount;
+        uiDirector.Top_Wall_Button.image.fillAmount = wallAmount;
+
+        if (this.nomal_delta >= this.nomal_span)
+        {
+            uiDirector.frontbutton.interactable = true;
+            uiDirector.leftbutton.interactable = true;
+            uiDirector.rightbutton.interactable = true;
+            uiDirector.topbutton.interactable = true;
+        }
+
+        if(this.wall_delta >= this.wall_span)
+        {
+            uiDirector.Front_Wall_Button.interactable = true;
+            uiDirector.Left_Wall_Button.interactable = true;
+            uiDirector.Right_Wall_Button.interactable = true;
+            uiDirector.Top_Wall_Button.interactable = true;
         }
 
     }

@@ -4,31 +4,65 @@ using UnityEngine;
 
 public class ObjectController : MonoBehaviour
 {
-    public float spead = 10;
+    [SerializeField] float spead = 10;
+    [SerializeField] float maxspeed = 1000;
+
     Vector3 distance;
     Vector3 startPos;
-    public float maxspeed = 1000;
-    GameObject Generator;
+
+    Generator generator;
+    GameController gameController;
+
+    Rigidbody rigidbody;
+
+    bool hitFlag = false;
+    [SerializeField] float lifeTime = 5.0f;
+
+    [SerializeField] Vector3 RotateAngle = Vector3.zero;
 
     private void Start()
     {
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        generator = GameObject.FindGameObjectWithTag("Generator").GetComponent<Generator>();
+        rigidbody = GetComponent<Rigidbody>();
+
         startPos = transform.position;
-        Generator = GameObject.Find("Generator");
+
+        rigidbody.AddForce(transform.forward * spead, ForceMode.Impulse);
     }
+
     void Update()
     {
         this.distance = startPos - transform.position;
         float len = distance.magnitude;
-
-        float speedx = Mathf.Abs(gameObject.GetComponent<Rigidbody>().velocity.x);
-        float speedy = Mathf.Abs(gameObject.GetComponent<Rigidbody>().velocity.y);
-        float speedz = Mathf.Abs(gameObject.GetComponent<Rigidbody>().velocity.z);
-
-        if(speedx <= maxspeed || speedy <= maxspeed || speedz <= maxspeed)
-        GetComponent<Rigidbody>().AddForce(transform.forward * spead, ForceMode.Force);
-        if (len >= Generator.GetComponent<Generator>().distance)
+       
+        if(hitFlag == true)
         {
+            lifeTime -= Time.deltaTime;
+            if (lifeTime < 0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        else
+        {
+            rigidbody.AddTorque(RotateAngle * Time.deltaTime);
+        }
+
+        if (len >= generator.distance)
+        {
+            Debug.Log("DESTROY");
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            hitFlag = true;
+            rigidbody.useGravity = true;
+            gameController.PlayerHit();
         }
     }
 }

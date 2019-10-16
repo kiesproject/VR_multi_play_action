@@ -9,6 +9,10 @@ TagManager:
   - DeleteLeft
   - DeleteUP
   - Score
+  - projectile
+  - FxTemporaire
+  - Generator
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -19,7 +23,7 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
+  - Head
   - 
   - 
   - 
