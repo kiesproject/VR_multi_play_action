@@ -39,12 +39,12 @@ public class GameController : MonoBehaviour
     public float _time = 20.0f;
 
     //目標値を宣言
-    [SerializeField] int Target_value = 10;
+    public int Target_value = 10;
     //hitCount(あたった回数)を初期化
-    [SerializeField] int hitCount;
+    public int hitCount;
 
     //攻撃側の勝利フラグ
-    bool Attacker_win = false;
+    public bool Attacker_win = false;
 
 
     //シーン変遷でゲームコントローラーが消えないようにしている
@@ -171,19 +171,7 @@ public class GameController : MonoBehaviour
     {
         state = State.End;
 
-        //hitCountBoard = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
-        //hitCountBoard.text = "ヒット回数" + hitCount;
-
-        //if (Attacker_win)
-        //{
-        //    hitCountBoard.text = hitCountBoard.text + "\nAttacker Win!!!";
-        //}
-        //else
-        //{
-        //    hitCountBoard.text = hitCountBoard.text + "\nDefender Win!!!";
-        //}
-
-        //hitCountBoard.enabled = true;
+        
     }
     
     //外部から呼び出せるようになっている、
