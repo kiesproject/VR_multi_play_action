@@ -20,11 +20,19 @@ public class wall : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.tag == "Bullet")
+        if (other.gameObject.tag == "Bullet")
         {
             HP -= 1;
+            Debug.Log("hit!!");
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+    }
+
+
 }

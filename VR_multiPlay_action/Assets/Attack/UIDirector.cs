@@ -179,7 +179,7 @@ public class UIDirector : MonoBehaviour
         this.timerText.text = gameController._time.ToString("F1");
 
       　//残り時間が0になったら止める処理
-        if(gameController._time <= 0)
+        if(gameController.state == GameController.State.End)
         {
             timerText.GetComponent<Text>().text = "0.0";
             topbutton.interactable = false;

@@ -12,6 +12,7 @@ TagManager:
   - projectile
   - FxTemporaire
   - Generator
+  - Bullet
   layers:
   - Default
   - TransparentFX
