@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour
             case State.End:
                 Debug.Log("End");
 
-                //if (Input.GetMouseButtonDown(0)) Reload();
+                if (Input.GetKeyDown(KeyCode.Space)) Reload();
 
                 break;
         }
@@ -170,14 +170,12 @@ public class GameController : MonoBehaviour
     void GameOver()
     {
         state = State.End;
-
-        
     }
     
     //外部から呼び出せるようになっている、
     //防御側でアイテムが当たったら呼び出してhitcountを+1する。
     public void PlayerHit()
     {
-        hitCount++;
+        if(state != State.End)  hitCount++;
     }
 }
