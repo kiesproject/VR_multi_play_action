@@ -13,9 +13,9 @@ public class Weak : MonoBehaviour
     {
         parent = transform.root.gameObject;
 
-        pos.x = Random.Range(-0.5f, 0.5f);
-        pos.y = Random.Range(-0.5f, 0.5f);
-        pos.x = Random.Range(-0.5f, 0.5f);
+        pos.x = Random.Range(-0.05f, 0.05f);
+        pos.y = Random.Range(-0.05f, 0.05f);
+        pos.x = Random.Range(-0.05f, 0.05f);
         transform.localPosition = new Vector3(pos.x, pos.y, pos.z);
     }
 
