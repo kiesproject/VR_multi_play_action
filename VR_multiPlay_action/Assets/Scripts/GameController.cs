@@ -16,37 +16,35 @@ using UnityEngine.UI;
 /// 
 /// 
 /// </summary>
-/// 
-
-
 public class GameController : MonoBehaviour
 {
     //自身のインスタンスを入れる変数をStaticで宣言。
     public static GameController controller;
 
     //  ReadyとPlayとEndの３つのステートを用いる
-    enum State
+    public enum State
     {
+        Start,
         Ready,
         Play,
         End
     }
 
-    State state;
+    public State state;
+
+    //スタートまでのカウントダウンの時間
+    public float ReadyTime = 5.0f;
 
     //ここで制限時間を宣言している
     public float _time = 20.0f;
 
     //目標値を宣言
-    [SerializeField] int Target_value = 10;
+    public int Target_value = 10;
     //hitCount(あたった回数)を初期化
-    [SerializeField] int hitCount = 0;
+    public int hitCount;
 
     //攻撃側の勝利フラグ
-    bool Attacker_win = false;
-
-    //UI elements
-    [SerializeField] Text hitCountBoard;
+    public bool Attacker_win = false;
 
 
     //シーン変遷でゲームコントローラーが消えないようにしている
@@ -59,8 +57,9 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //最初はReadyからスタート
-        Ready();
+        //最初Start状態からからスタート
+        GameAwake();
+        hitCount = 0;
     }
 
     // Update is called once per frame
@@ -73,11 +72,19 @@ public class GameController : MonoBehaviour
         switch (state)
         {
             //最初に来る部分、ボタンを押したらゲームを開始する
+            case State.Start:
+                Debug.Log("Start");
+
+                //GameStartメソッドを呼び出している、
+                //これによりシーンをGameManagerTestシーンへ変遷している
+                if (Input.GetKeyDown(KeyCode.Space)) GameStart();
+
+                break;
+            
+            //シーンに移行後、カウントダウンしてからスタート
             case State.Ready:
                 Debug.Log("Ready");
-
-                //GameStartメソッドを呼び出している、これによりシーンをGameManagerTestシーンへ変遷している
-                if (Input.GetMouseButtonDown(0)) GameStart();
+                OnReady();
 
                 break;
 
@@ -87,58 +94,71 @@ public class GameController : MonoBehaviour
                 Refereeing();
                 OnPlaying();
 
+                Debug.Log(hitCount);
+
                 break;
 
-            //GameOver時にステートはEndに変更される、勝利した人とヒット回数を表示し、ボタンを押すとリスタートされる。
+            //GameOver時にステートはEndに変更される、
+            //勝利した人とヒット回数を表示し、ボタンを押すとリスタートされる。
             case State.End:
                 Debug.Log("End");
 
-                if (Input.GetMouseButtonDown(0)) Reload();
+                //if (Input.GetMouseButtonDown(0)) Reload();
 
                 break;
         }
     }
-    
 
- /// <summary>
- /// ここからは各メソッドの説明を行う
- /// </summary>
+    /// Start状態でのメソッド群 ----------------------------------------------------------
+
+    //Awake時にStart状態にする、その他スタート時にやりたい処理はここに追記
+    void GameAwake()
+    {
+        state = State.Start;
+    }
+
+    //Start状態の時にボタンを押したら呼び出される、ステートをReadyにし、Mainシーンに移行
+    void GameStart()
+    {
+        state = State.Ready;
+        SceneManager.LoadScene("MainScene");
+    }
+
+    /// Ready状態でのメソッド群 -----------------------------------------------------------
+
+    //ready状態では、スタートまでのカウントダウンを表示
+    private void OnReady()
+    {
+        ReadyTime -= Time.deltaTime;
+        if (ReadyTime <= 0) state = State.Play;
+    }
+
+    /// Play状態でのメソッド群 ------------------------------------------------------------
 
     //OnPlayingは制限時間を減少させて、0以下になったらGameOverメソッドを呼び出す
     private void OnPlaying()
     {
         _time -= Time.deltaTime;
-        //Debug.Log(t);
 
-        if (_time < 0) GameOver();
+
+        if (_time <= 0) GameOver();
     }
 
     //Refereeingは勝利の判定、攻撃側のノルマ達成を判定している
     private void Refereeing()
     {
-        if(hitCount >= Target_value)
+        if (hitCount >= Target_value)
         {
             Attacker_win = true;
         }
     }
 
+    /// End状態でのメソッド群 -------------------------------------------------------------
+
     //ReloadはEndステート時にTitleシーンに移行
     void Reload()
     {
         SceneManager.LoadScene("Title");
-    }
-
-    //Awake時にReady状態にする、その他スタート時にやりたい処理はここに追記
-    void Ready()
-    {
-        state = State.Ready;
-    }
-
-    //Ready状態の時にボタンを押したら呼び出される、ステートをPlayにし、GameManagerTestシーンに移行
-    void GameStart()
-    {
-        state = State.Play;
-        SceneManager.LoadScene("GameManagerTest");
     }
 
     /// <summary>
@@ -147,31 +167,17 @@ public class GameController : MonoBehaviour
     /// hitCount(あたった回数)をスコアタグのついているTextUIに表示する、
     /// Textを変えて、勝利した側を表示。
     /// </summary>
-
     void GameOver()
     {
         state = State.End;
-        hitCountBoard = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
-        hitCountBoard.text = "ヒット回数" + hitCount;
-        if (Attacker_win)
-        {
-            hitCountBoard.text = hitCountBoard.text + "\nAttacker Win!!!";
-        }
-        else
-        {
-            hitCountBoard.text = hitCountBoard.text + "\nDefender Win!!!";
-        }
 
-        hitCountBoard.enabled = true;
+        
     }
-
-
-
+    
     //外部から呼び出せるようになっている、
     //防御側でアイテムが当たったら呼び出してhitcountを+1する。
     public void PlayerHit()
     {
         hitCount++;
     }
-
 }

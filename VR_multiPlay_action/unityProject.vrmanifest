@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.vr_multiplay_action.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\kiesVR\\Documents\\GitHub\\VR_multi_play_action\\VR_multiPlay_action\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "VR_multiPlay_action [Testing]"
+        }
+      }
+    }
+  ]
+}
