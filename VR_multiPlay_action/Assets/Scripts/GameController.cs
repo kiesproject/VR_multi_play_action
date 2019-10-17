@@ -140,7 +140,6 @@ public class GameController : MonoBehaviour
     {
         _time -= Time.deltaTime;
 
-
         if (_time <= 0) GameOver();
     }
 

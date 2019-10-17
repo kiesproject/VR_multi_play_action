@@ -31,6 +31,8 @@ public class UIDirector : MonoBehaviour
     [SerializeField] Text SpeedUP;
     [SerializeField] Text[] CountDownTexts = new Text[5];
 
+    [SerializeField] GameObject EndAudio;
+
     float small_scall = 1.0f;
     float big_scall = 1.0f;
 
@@ -138,6 +140,11 @@ public class UIDirector : MonoBehaviour
         {
             adjustCube.nomal_span = second_Interval_Cube;
             adjustCube.wall_span = second_Interval_Wall;
+        }
+
+        if(gameController._time <= 5.0f)
+        {
+            EndAudio.SetActive(true);
         }
 
         //カウントダウンをUIで表示する

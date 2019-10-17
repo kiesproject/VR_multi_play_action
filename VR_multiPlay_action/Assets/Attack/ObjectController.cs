@@ -20,6 +20,11 @@ public class ObjectController : MonoBehaviour
 
     [SerializeField] Vector3 RotateAngle = Vector3.zero;
 
+    [SerializeField] AudioSource ShootAudio;
+    [SerializeField] AudioSource fallAudio;
+
+    public bool falling = false;
+
     private void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
@@ -27,6 +32,15 @@ public class ObjectController : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
 
         startPos = transform.position;
+
+        if(falling == true)
+        {
+            fallAudio.Play();
+        }
+        else
+        {
+            ShootAudio.Play();
+        }
 
         rigidbody.AddForce(transform.forward * spead, ForceMode.Impulse);
     }
