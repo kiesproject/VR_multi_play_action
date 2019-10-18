@@ -20,12 +20,17 @@ public class ReadyCountDown : MonoBehaviour
     {
         if(gameController.state == GameController.State.Ready)
         {
-            CoutText.gameObject.SetActive(true);
+            CoutText.enabled = true;
             CoutText.text = gameController.ReadyTime.ToString("N0");
+        }
+        else if(gameController._time <= 5.0f && tag != "EditorOnly")
+        {
+            CoutText.enabled = true;
+            CoutText.text = gameController._time.ToString("N0");
         }
         else
         {
-            CoutText.gameObject.SetActive(false);
+            CoutText.enabled = false;
         }
     }
 }

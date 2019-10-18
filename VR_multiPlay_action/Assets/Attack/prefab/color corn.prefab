@@ -214,6 +214,8 @@ MonoBehaviour:
   RotateAngle: {x: 0, y: 1, z: 1}
   ShootAudio: {fileID: 7362076575966209183}
   fallAudio: {fileID: 3161215188051768469}
+  hitFX: {fileID: 9188693852508648211, guid: 09a8b5e50f8c13b49abae909141996b6, type: 3}
+  falling: 0
 --- !u!1 &5568429924697242555
 GameObject:
   m_ObjectHideFlags: 0

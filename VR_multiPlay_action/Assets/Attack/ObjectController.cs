@@ -23,6 +23,8 @@ public class ObjectController : MonoBehaviour
     [SerializeField] AudioSource ShootAudio;
     [SerializeField] AudioSource fallAudio;
 
+    [SerializeField] GameObject hitFX;
+
     public bool falling = false;
 
     private void Start()
@@ -65,7 +67,6 @@ public class ObjectController : MonoBehaviour
 
         if (len >= generator.distance)
         {
-            Debug.Log("DESTROY");
             Destroy(gameObject);
         }
     }
@@ -77,6 +78,8 @@ public class ObjectController : MonoBehaviour
             hitFlag = true;
             rigidbody.useGravity = true;
             gameController.PlayerHit();
+
+            Instantiate(hitFX, collision.contacts[0].point, Quaternion.Euler(-90, 0, 0));
         }
     }
 }

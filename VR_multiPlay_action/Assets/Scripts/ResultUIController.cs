@@ -6,14 +6,17 @@ using UnityEngine.Playables;
 
 public class ResultUIController : MonoBehaviour
 {
-    [SerializeField] GameObject ResultPanel;
+    [SerializeField] GameObject ResultPanel0;
+    [SerializeField] GameObject ResultPanel1;
+
     [SerializeField] Text winnerLabel;
+    [SerializeField] Text winnerLabel1;
 
     [SerializeField] Image ScoreImage;
-    [SerializeField] Text ratioLabel;
+    [SerializeField] Image ScoreImage1;
 
-    [SerializeField] int TestScore = 10;
-    [SerializeField] int TestTargetScore = 10;
+    [SerializeField] Text ratioLabel;
+    [SerializeField] Text ratioLabel1;
 
     [Range(0f,1f)][SerializeField] float AnimationValue;
 
@@ -26,7 +29,8 @@ public class ResultUIController : MonoBehaviour
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         playableDirector = GetComponent<PlayableDirector>();
-        ResultPanel.SetActive(false);
+        ResultPanel0.SetActive(false);
+        ResultPanel1.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,7 +39,8 @@ public class ResultUIController : MonoBehaviour
         if(gameController.state == GameController.State.End)
         {
             UIChenging();
-            ResultPanel.SetActive(true);
+            ResultPanel0.SetActive(true);
+            ResultPanel1.SetActive(true);
             playableDirector.Play();
         }
     }
@@ -45,16 +50,20 @@ public class ResultUIController : MonoBehaviour
         if (gameController.Attacker_win == true)
         {
             winnerLabel.text = "攻撃側の勝利!!!";
+            winnerLabel1.text = "攻撃側の勝利!!!";
         }
         else
         {
             winnerLabel.text = "防御側の勝利!!!";
+            winnerLabel1.text = "防御側の勝利!!!";
         }
 
         ratioLabel.text = gameController.hitCount + "/" + gameController.Target_value;
+        ratioLabel1.text = gameController.hitCount + "/" + gameController.Target_value;
 
         float ratio = (float)gameController.hitCount / gameController.Target_value;
 
         ScoreImage.fillAmount = ratio * 0.5f * AnimationValue;
+        ScoreImage1.fillAmount = ratio * 0.5f * AnimationValue;
     }
 }
