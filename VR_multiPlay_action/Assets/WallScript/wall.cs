@@ -7,6 +7,8 @@ public class wall : MonoBehaviour
     public readonly float maxHP = 4;
     public float HP;
 
+    [SerializeField] GameObject FX;
+
     private void Start()
     {
         HP = maxHP;
@@ -16,6 +18,7 @@ public class wall : MonoBehaviour
     {
         if (HP <= 0)
         {
+            Instantiate(FX, transform.position, transform.rotation);
             Destroy(this.gameObject);
         }
     }
@@ -28,11 +31,5 @@ public class wall : MonoBehaviour
             Debug.Log("hit!!");
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-    }
-
 
 }

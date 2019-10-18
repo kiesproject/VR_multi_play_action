@@ -11,13 +11,13 @@ public class shooting : MonoBehaviour
     public float reloadtime = 3.0f;
     public float time = 0f;
 
-    TextMesh textMesh;
+    [SerializeField] TextMesh textMesh;
+    [SerializeField] AudioSource ShootAudio;
 
     private SteamVR_Action_Boolean steamActionBool = SteamVR_Actions._default.InteractUI;
 
     private void Start()
     {
-        textMesh = GetComponent<TextMesh>();
         textMesh.text = shotCount.ToString();
     }
 
@@ -36,9 +36,9 @@ public class shooting : MonoBehaviour
 
                 //射撃されてから1秒後に銃弾のオブジェクトを破壊する.
 
-                Destroy(bullet, 1.0f);
+                Destroy(bullet, 1.5f);
             }
-
+            ShootAudio.Play();
         }
         else if (shotCount < 5)
         {

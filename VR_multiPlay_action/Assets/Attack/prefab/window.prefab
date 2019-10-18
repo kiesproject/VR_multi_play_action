@@ -551,6 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wHP: 1
+  FX: {fileID: 7865811620083108258, guid: 105b43107c4c65a42b77d6c15bce9332, type: 3}
 --- !u!1 &6119618376667232040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,6 +1061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 0
+  FX: {fileID: 7865811620083108258, guid: 105b43107c4c65a42b77d6c15bce9332, type: 3}
 --- !u!1 &8532655383511899930
 GameObject:
   m_ObjectHideFlags: 0

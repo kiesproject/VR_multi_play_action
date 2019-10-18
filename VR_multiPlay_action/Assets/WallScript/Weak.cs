@@ -8,7 +8,8 @@ public class Weak : MonoBehaviour
     private GameObject parent;
 
     Vector3 pos;
-    
+    [SerializeField] GameObject FX;
+
     private void Start()
     {
         parent = transform.root.gameObject;
@@ -28,12 +29,11 @@ public class Weak : MonoBehaviour
     }
 
     private void Update()
-    {
-
+    { 
         if (wHP <= 0)
         {
+            Instantiate(FX, parent.transform.position, parent.transform.rotation);
             Destroy(parent);
         }
-
     }
 }
