@@ -62,7 +62,7 @@ public class ObjectController : MonoBehaviour
         }
         else
         {
-            rigidbody.AddTorque(RotateAngle * Time.deltaTime);
+            rigidbody.AddTorque(RotateAngle * Random.Range(-1f,1f) * Time.deltaTime);
         }
 
         if (len >= generator.distance)

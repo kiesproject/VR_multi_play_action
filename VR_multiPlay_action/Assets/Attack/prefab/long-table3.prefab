@@ -184,7 +184,7 @@ Transform:
   m_GameObject: {fileID: 3409513918821865666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.66929, y: 0.66929, z: 0.66929}
   m_Children:
   - {fileID: 4608233539665544786}
   - {fileID: 4895785256819209505}
@@ -241,7 +241,7 @@ MonoBehaviour:
   spead: 10
   maxspeed: 1000
   lifeTime: 5
-  RotateAngle: {x: 0, y: 1, z: 0}
+  RotateAngle: {x: 1, y: 1, z: 0}
   ShootAudio: {fileID: 6232317409285889235}
   fallAudio: {fileID: 8053761773919833695}
   hitFX: {fileID: 9188693852508648211, guid: 09a8b5e50f8c13b49abae909141996b6, type: 3}

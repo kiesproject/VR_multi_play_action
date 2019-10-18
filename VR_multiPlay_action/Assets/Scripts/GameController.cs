@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Valve.VR;
 
 
 /// <summary>
@@ -20,6 +21,8 @@ public class GameController : MonoBehaviour
 {
     //自身のインスタンスを入れる変数をStaticで宣言。
     public static GameController controller;
+
+    private SteamVR_Action_Boolean steamActionBool = SteamVR_Actions._default.InteractUI;
 
     //  ReadyとPlayとEndの３つのステートを用いる
     public enum State
@@ -77,7 +80,7 @@ public class GameController : MonoBehaviour
 
                 //GameStartメソッドを呼び出している、
                 //これによりシーンをGameManagerTestシーンへ変遷している
-                if (Input.GetKeyDown(KeyCode.Space)) GameStart();
+                if (steamActionBool.GetStateDown(SteamVR_Input_Sources.LeftHand)) GameStart();
 
                 break;
             
